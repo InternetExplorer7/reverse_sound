@@ -22,12 +22,12 @@ public class ListStack implements DStack {
 	public void push(double d) {
 		if (head == null) {
 			// first node
-			head = new ListClassNode(d, null); // Add first value, null next.
+			head = new ListClassNode(null, d, null); // null prev, d value, null next
 		} else if (tail == null) {
-			head.next = new ListClassNode(d, null); // Second value, next head.
+			head.next = new ListClassNode(head, d, null); // first head, d value, null next
 			tail = head.next; // Finally, set our tail.
 		} else {
-			tail.next = new ListClassNode(d, null); // point previous last to new last.
+			tail.next = new ListClassNode(tail, d, null); // n - 1 tail, d value, null next
 			tail = tail.next; // update tail.
 		}
 		size++; // Reflect 'push' operation by incrementing size.

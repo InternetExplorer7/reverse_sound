@@ -6,8 +6,10 @@ public class ListClassNode {
 	// A reference to the next node ("node") of type "ListClassNode."
 	double value;
 	ListClassNode next;
-	ListClassNode(double value, ListClassNode next) {
+	ListClassNode prev;
+	ListClassNode(ListClassNode prev, double value, ListClassNode next) {
 		this.value = value;
 		this.next = next;
+		this.prev = prev;
 	}
 }
