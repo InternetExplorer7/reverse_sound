@@ -51,10 +51,14 @@ public class ListStack implements DStack {
 		}
 		
 		// Otherwise, we do have a tail pointer and > 1 node(s) in our Linked List.
-		ListClassNode saveHead = head; // Save this before we dereference it.
-		head = head.next;
+//		ListClassNode saveHead = head; // Save this before we dereference it.
+//		head = head.next;
+//		size--;
+//		return saveHead.value;
+		ListClassNode saveTail = tail;
+		tail = tail.prev; // go in opp direction.
 		size--;
-		return saveHead.value;
+		return saveTail.value;
 	}
 
 	@Override
