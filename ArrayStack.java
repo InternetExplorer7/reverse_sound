@@ -48,27 +48,10 @@ public class ArrayStack implements DStack{
 		}
 		return to;
 	}
-//	int a = 1;
 	@Override
 	public double pop() {
-		/*
-		 * TEST STUFF DELETE BEFORE RELEASE.
-		 */
-//		if (a == 1) {
-//			System.out.println("size: " + this.size + "array.length: " + array.length + "at last element: " + array[154363]);
-//			a++;
-//			for(int j = 0; j < array.length; j++){
-//				if (array[j] == 0.0) {
-//					//System.out.println("Empty space.");
-//				}
-//			}
-//		}
-		double value = array[head];
-		head++;
-		if (head == tail) {
-//			System.out.println("head: " + head + "; array.length: " + array.length + "; size: " + this.size);
-			head = 0;
-		}
+		double value = array[tail];
+		tail--;
 		size--;
 		return value;
 	}

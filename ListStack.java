@@ -49,12 +49,7 @@ public class ListStack implements DStack {
 			size--; // reflect size decrease; expected: 0.
 			return saveHead.value; // Return the value of previous head.
 		}
-		
-		// Otherwise, we do have a tail pointer and > 1 node(s) in our Linked List.
-//		ListClassNode saveHead = head; // Save this before we dereference it.
-//		head = head.next;
-//		size--;
-//		return saveHead.value;
+		// Otherwise, we have > 1 node(s).
 		ListClassNode saveTail = tail;
 		tail = tail.prev; // go in opp direction.
 		size--;
@@ -69,7 +64,5 @@ public class ListStack implements DStack {
 		
 		// Otherwise, return the value at head without removing.
 		return head.value;
-		
-		// "size" doesn't change since we're only peeking! :)
 	}
 }
