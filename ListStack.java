@@ -5,12 +5,10 @@ import java.util.EmptyStackException;
 
 public class ListStack implements DStack {
 	private ListClassNode head;
-	private ListClassNode tail;
 	private int size; // the size of the Linked List. Used in methods.
 	// Constructor, initialize methods.
 	public ListStack() {
 		head = null;
-		tail = null;
 		size = 0;
 	}
 	@Override
@@ -22,13 +20,10 @@ public class ListStack implements DStack {
 	public void push(double d) {
 		if (head == null) {
 			// first node
-			head = new ListClassNode(null, d, null); // null prev, d value, null next
-		} else if (tail == null) {
-			head.next = new ListClassNode(head, d, null); // first head, d value, null next
-			tail = head.next; // Finally, set our tail.
+			head = new ListClassNode(d, null); // first element in stack; add first node and set head.
 		} else {
-			tail.next = new ListClassNode(tail, d, null); // n - 1 tail, d value, null next
-			tail = tail.next; // update tail.
+			ListClassNode temp = head; // save head
+			head = new ListClassNode(d, temp); // new head -> previous head
 		}
 		size++; // Reflect 'push' operation by incrementing size.
 		
@@ -41,19 +36,10 @@ public class ListStack implements DStack {
 			throw new EmptyStackException();
 		}
 		
-		// If our tail pointer is null, then we only have one node and 'pop' will make the stack empty.
-		// Therefore, head can't point to next, because next is null.
-		if (tail == null) {
-			ListClassNode saveHead = head;
-			head = null; // pop it off.
-			size--; // reflect size decrease; expected: 0.
-			return saveHead.value; // Return the value of previous head.
-		}
-		// Otherwise, we have > 1 node(s).
-		ListClassNode saveTail = tail;
-		tail = tail.prev; // go in opp direction.
-		size--;
-		return saveTail.value;
+		double value = head.value; // get the value @ head.
+		head = head.next; // move down to next element.
+		size--; // decrement the size.
+		return value;
 	}
 
 	@Override

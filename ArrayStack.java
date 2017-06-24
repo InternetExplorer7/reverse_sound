@@ -3,41 +3,34 @@ package soundblaster;
 import java.util.EmptyStackException;
 
 public class ArrayStack implements DStack{
-	// "head" and "tail" are no longer pointers, but indexes!
-	int size;
+	// "head" is an index.
 	int head;
-	int tail;
-	double[] array; // Will be used initially
-	// Constructor
+	double[] array;
 	public ArrayStack() {
 		// initialize values.
-		head = 0;
-		tail = 0;
-		size = 0;
-		array = new double[10];
+		head = -1;
+		array = new double[10]; // a nice default size.
 	}
 	@Override
 	public boolean isEmpty() {
-		return size == 0;
+		return head == -1; // -1 since we don't want to miss popping our last element, array[head] when head = 0.
 	}
 
 	@Override
 	public void push(double d) {
-		size++;
-		// Firstly, check to see if the tail is about to jump out of bounds.
-		if (tail == array.length) {
-			// Double the size!
-			double[] copy = new double[array.length];
-			copy = array;
-			// Done copying.
-			int newSize = array.length * 2;
-			// reinitialize array with 2x size.
-			array = new double[newSize];
-			array = copyRangeFromArrayToArray(copy, array); // copy it back
+		if (array[head] == 0.0) { // First push
+			// first insert.
+			head++; // Start head @ 0.
+			array[head] = d;
+			return;
+		} else if(head == array.length - 1){
+			// Reached the length, increase size.
+			double[] copy = copyRangeFromArrayToArray(array, new double[array.length]); // copies elements from 'array' to 'copy.'
+			array = new double[array.length * 2]; // 2x previous size.
+			array = copyRangeFromArrayToArray(copy, array);
 		}
-		// Otherwise, add next element.
-		array[tail] = d;
-		tail++;
+		head++;
+		array[head] = d;
 	}
 	
 	// Copies the values from one array to the other.
@@ -50,15 +43,19 @@ public class ArrayStack implements DStack{
 	}
 	@Override
 	public double pop() {
-		double value = array[tail];
-		tail--;
-		size--;
+		if (head == -1) {
+			throw new EmptyStackException();
+		}
+		System.out.println("head: " + head);
+		// Otherwise, there are still elements that exist in the set.
+		double value = array[head]; // get value @ head.
+		head--; // move head to next.
 		return value;
 	}
 
 	@Override
 	public double peek() {
-		if (size == 0) {
+		if (head == -1) {
 			throw new EmptyStackException();
 		}
 		return array[head];
