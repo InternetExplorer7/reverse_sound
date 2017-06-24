@@ -18,7 +18,7 @@ public class ArrayStack implements DStack{
 
 	@Override
 	public void push(double d) {
-		if (array[head] == 0.0) { // First push
+		if (head == -1) { // First push
 			// first insert.
 			head++; // Start head @ 0.
 			array[head] = d;
